@@ -122,42 +122,44 @@
 
     <script>
 
-        let citiesData = [
-            { city: 'tehran', temp: 12, des: 'sunny', windspeed: 23, humidity: 26 },
-            { city: 'shiraz', temp: 43, des: 'windy', windspeed: 32, humidity: 12 },
-            { city: 'tabriz', temp: 9, des: 'rainy', windspeed: 52, humidity: 19 },
-            { city: 'mashhad', temp: 31, des: 'sunny', windspeed: 49, humidity: 20 },
-            { city: 'esfahan', temp: 1, des: 'snowy', windspeed: 37, humidity: 23 },
-        ]
+        let citiesData1 = {
+            tehran: { city: 'Tehran', temp: 12, des: 'sunny', windspeed: 23, humidity: 26 },
+            shiraz: { city: 'Shiraz', temp: 43, des: 'windy', windspeed: 32, humidity: 12 },
+            tabriz: { city: 'Tabriz', temp: 9, des: 'rainy', windspeed: 52, humidity: 19 },
+            esfahan: { city: 'Esfahan', temp: 1, des: 'snowy', windspeed: 37, humidity: 23 },
+            mashhad: { city: 'Mashhad', temp: 31, des: 'sunny', windspeed: 49, humidity: 20 },
+        }
 
         let $ = document;
         let btn = $.querySelector('button');
-        let inputBox = $.querySelector('input');
+        let inputDataBox = $.querySelector('input');
+
+        let cityData = $.querySelector('.city');
+        let tempData = $.querySelector('.temp');
+        let descriptionData = $.querySelector('.description');
+        let humidityData = $.querySelector('.humidity');
+        let windData = $.querySelector('.wind');
+        // let divBox = $.querySelector('.loading');
+        let divBox = $.querySelector('.weather');
 
         btn.addEventListener('click', function () {
-            let valueBox = inputBox.value;
-            // console.log(valueBox);
+            let mainUserData = inputDataBox.value;
+            let mainServerData = citiesData1[mainUserData];
 
-            let city = citiesData.find(function (item) {
-                if (item.city === valueBox) {
-                    $.querySelector('.city').innerHTML = 'Weather in ' + item.city;
-                    $.querySelector('.temp').innerHTML = item.temp + '°C';
-                    $.querySelector('.description').innerHTML = item.des;
-                    $.querySelector('.humidity').innerHTML = 'Wind speed: ' + item.windspeed + 'km / h';
-                    $.querySelector('.wind').innerHTML = 'Humidity: ' + item.humidity + '%';
-                    $.querySelector('.weather').classList.remove('loading');
-                    // return item.city === valueBox;
-                    // return true;
-                }
-                else {
-                    console.log('لطفا مسخره بازی در نیارید !');
-                    // return true;
-                }
-                // console.log(city);
-            });
-        });
+            if (mainServerData) {
+                cityData.innerHTML = 'Weather in ' + mainServerData.city;
+                tempData.innerHTML = mainServerData.temp + '°C';
+                descriptionData.innerHTML = mainServerData.des;
+                humidityData.innerHTML = 'Humidity: ' + mainServerData.windspeed + '%';
+                windData.innerHTML = 'Wind speed: ' + mainServerData.humidity + 'km/h';
+                divBox.classList.remove('loading')
 
+            }
+            else {
+                console.log('لطفا مسخره بازی در نیارید !');
+            }
 
+        })
 
     </script>
 
